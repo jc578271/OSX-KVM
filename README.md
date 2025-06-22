@@ -198,12 +198,21 @@ processors work just fine (even for macOS Sonoma).
     ```bash
     virsh --connect qemu:///system define macOS.xml
     ```
-
   - If needed, grant necessary permissions to libvirt-qemu user,
 
     ```
     sudo setfacl -m u:libvirt-qemu:rx /home/$USER
     sudo setfacl -R -m u:libvirt-qemu:rx /home/$USER/OSX-KVM
+    ```
+  - Move libvirt part into macOS,
+
+    ```
+    sudo mkdir -p /var/lib/libvirt/images/macOS
+    sudo cp ~/OSX-KVM/OVMF_CODE.fd /var/lib/libvirt/images/macOS/
+    sudo cp ~/OSX-KVM/OVMF_VARS.fd /var/lib/libvirt/images/macOS/
+    sudo cp ~/OSX-KVM/OpenCore/OpenCore.qcow2 /var/lib/libvirt/images/macOS/
+    sudo mv ~/OSX-KVM/mac_hdd_ng.img /var/lib/libvirt/images/macOS/
+    sudo mv ~/OSX-KVM/BaseSystem.img /var/lib/libvirt/images/macOS/
     ```
 
   - Launch `virt-manager` and start the `macOS` virtual machine.
