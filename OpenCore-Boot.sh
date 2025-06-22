@@ -64,6 +64,8 @@ args=(
   -monitor stdio
   -device vmware-svga
   # -spice port=5900,addr=127.0.0.1,disable-ticketing=on
+  -drive id=MacDVD,if=none,file="$REPO_PATH/InstallAssistant.iso",format=raw
+  -device ide-hd,bus=sata.5,drive=MacDVD
 )
 
 qemu-system-x86_64 "${args[@]}"
